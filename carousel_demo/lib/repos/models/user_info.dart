@@ -1,17 +1,17 @@
 import 'user.dart';
 
-class Result {
+class UserInfo {
   User user;
   String seed;
   String version;
 
-  Result({
+  UserInfo({
     this.user,
     this.seed,
     this.version,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         user: User.fromJson(json["user"]),
         seed: json["seed"],
         version: json["version"],

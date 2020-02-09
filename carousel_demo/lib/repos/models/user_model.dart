@@ -1,7 +1,7 @@
-import 'result.dart';
+import 'user_info.dart';
 
 class UserModel {
-  List<Result> results;
+  List<UserInfo> results;
 
   UserModel({this.results});
 
@@ -9,13 +9,13 @@ class UserModel {
       : results = List(),
         error = errorValue;*/
 
-  /*UserResponse.fromJson(Map<String, dynamic> json)
+  /*UserModel.fromJson(Map<String, dynamic> json)
       : results =
-  (json["results"] as List).map((i) => new User.fromJson(i)).toList(),
-        error = "";*/
+            (json["results"] as List).map((i) => UserInfo.fromJson(i)).toList();*/
+
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        results: List<UserInfo>.from(
+            json["results"].map((x) => UserInfo.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
