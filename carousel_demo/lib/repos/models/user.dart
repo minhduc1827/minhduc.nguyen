@@ -1,5 +1,5 @@
-import 'Location.dart';
-import 'Name.dart';
+import 'location.dart';
+import 'name.dart';
 
 class User {
   String gender;

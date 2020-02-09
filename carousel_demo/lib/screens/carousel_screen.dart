@@ -1,12 +1,17 @@
+import 'package:carousel_demo/common/base_state.dart';
+import 'package:carousel_demo/repos/flt_exception.dart';
+import 'package:carousel_demo/screens/user_bloc.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:property_change_notifier/property_change_notifier.dart';
 
 class CarouselScreen extends StatefulWidget {
   @override
   _CarouselScreenState createState() => _CarouselScreenState();
 }
 
-class _CarouselScreenState extends State<CarouselScreen> {
+class _CarouselScreenState extends BaseState<CarouselScreen> {
+  UserBloc _userBloc;
   List<String> _imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -33,8 +38,25 @@ class _CarouselScreenState extends State<CarouselScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  void initState() {
+    super.initState();
+    if (_userBloc == null) {
+      _userBloc = providerOfBloc();
+    }
+    _getUser();
+  }
+
+  void _getUser() async {
+    try {
+      _userBloc.getUser();
+    } on FltException catch (e) {
+      print('Carousel get user exception=${e.message}');
+    }
+  }
+
+  @override
+  Widget buildChild(BuildContext context) {
+    /*return Container(
       child: CarouselSlider(
         items: _buildImageWidgets(),
         autoPlay: false,
@@ -42,6 +64,34 @@ class _CarouselScreenState extends State<CarouselScreen> {
         viewportFraction: 0.9,
         aspectRatio: 2.0,
       ),
+    );*/
+    return PropertyChangeConsumer<UserBloc>(
+      properties: [UserBlocProperties.serverError, UserBlocProperties.complete],
+      builder: (context, bloc, property) {
+        // ignore: unrelated_type_equality_checks
+        if (property == UserBlocProperties.complete) {
+          print('user bloc @userModel=${bloc.userModel}');
+          return Container(
+            child: CarouselSlider(
+              items: _buildImageWidgets(),
+              autoPlay: false,
+              enlargeCenterPage: true,
+              viewportFraction: 0.9,
+              aspectRatio: 2.0,
+            ),
+          );
+        } else {
+          return Container(
+            child: CarouselSlider(
+              items: _buildImageWidgets(),
+              autoPlay: false,
+              enlargeCenterPage: true,
+              viewportFraction: 0.9,
+              aspectRatio: 2.0,
+            ),
+          );
+        }
+      },
     );
   }
 }
