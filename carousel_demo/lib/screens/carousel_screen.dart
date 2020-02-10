@@ -1,9 +1,7 @@
 import 'package:carousel_demo/common/base_state.dart';
-import 'package:carousel_demo/repos/flt_exception.dart';
-import 'package:carousel_demo/screens/user_bloc.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_demo/screens/user_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:property_change_notifier/property_change_notifier.dart';
+import 'package:provider/provider.dart';
 
 class CarouselScreen extends StatefulWidget {
   @override
@@ -11,7 +9,6 @@ class CarouselScreen extends StatefulWidget {
 }
 
 class _CarouselScreenState extends BaseState<CarouselScreen> {
-  UserBloc _userBloc;
   List<String> _imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -40,23 +37,20 @@ class _CarouselScreenState extends BaseState<CarouselScreen> {
   @override
   void initState() {
     super.initState();
-    if (_userBloc == null) {
-      _userBloc = providerOfBloc();
-    }
-    _getUser();
+//    _getUser();
   }
 
   void _getUser() async {
-    try {
+    /*try {
       _userBloc.getUser();
     } on FltException catch (e) {
       print('Carousel get user exception=${e.message}');
-    }
+    }*/
   }
 
   @override
   Widget buildChild(BuildContext context) {
-    return PropertyChangeConsumer<UserBloc>(
+    /*return PropertyChangeConsumer<UserBloc>(
       properties: [
         UserBlocProperties.serverError,
         UserBlocProperties.complete,
@@ -84,6 +78,8 @@ class _CarouselScreenState extends BaseState<CarouselScreen> {
           return Container();
         }
       },
-    );
+    );*/
+    final userProvider = Provider.of<UserNotifier>(context);
+    return Container();
   }
 }
