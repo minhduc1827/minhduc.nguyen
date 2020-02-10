@@ -57,10 +57,19 @@ class _CarouselScreenState extends BaseState<CarouselScreen> {
   @override
   Widget buildChild(BuildContext context) {
     return PropertyChangeConsumer<UserBloc>(
-      properties: [UserBlocProperties.serverError, UserBlocProperties.complete],
+      properties: [
+        UserBlocProperties.serverError,
+        UserBlocProperties.complete,
+      ],
       builder: (context, bloc, property) {
-        // ignore: unrelated_type_equality_checks
-        if (property == UserBlocProperties.complete) {
+        print('user bloc @property=$property');
+        if (property == null) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: CircularProgressIndicator(),
+          );
+        } else if (property == UserBlocProperties.complete) {
           print('user bloc @userModel=${bloc.userModel}');
           return Container(
             child: CarouselSlider(
@@ -72,15 +81,7 @@ class _CarouselScreenState extends BaseState<CarouselScreen> {
             ),
           );
         } else {
-          return Container(
-            child: CarouselSlider(
-              items: _buildImageWidgets(),
-              autoPlay: false,
-              enlargeCenterPage: true,
-              viewportFraction: 0.9,
-              aspectRatio: 2.0,
-            ),
-          );
+          return Container();
         }
       },
     );

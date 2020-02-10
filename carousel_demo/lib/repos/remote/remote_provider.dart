@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:carousel_demo/repos/endpoint.dart';
 import 'package:carousel_demo/repos/models/user_model.dart';
@@ -34,7 +35,7 @@ class RemoteProvider {
   }) async {
     Response response;
     response = await _dio.get(path, queryParameters: queryParams);
-    print('$requestName response=${response.toString()}');
+    print('$requestName response=${response.runtimeType}');
     return response;
   }
 
@@ -63,7 +64,8 @@ class RemoteProvider {
         requestName: 'getUser',
         path: AppUtils.mapURLPatternValue(Endpoint.getUser),
         convertToModel: (response) {
-          return UserModel.fromJson(response.data);
+          Map<String, dynamic> mapJson = json.decode(response.data);
+          return UserModel.fromJson(mapJson);
         });
   }
 }
