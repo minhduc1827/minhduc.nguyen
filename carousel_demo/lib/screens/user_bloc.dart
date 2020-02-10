@@ -21,7 +21,7 @@ class UserBloc extends PropertyChangeNotifier<UserBlocProperties> {
   Future<UserModel> getUser() async {
     try {
       UserModel user = await userRepo.getUser();
-      userModel=user;
+      userModel = user;
       notifyListeners(UserBlocProperties.complete);
       return user;
     } on FltException catch (e) {
