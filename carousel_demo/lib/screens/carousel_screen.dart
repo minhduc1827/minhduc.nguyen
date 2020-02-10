@@ -56,15 +56,6 @@ class _CarouselScreenState extends BaseState<CarouselScreen> {
 
   @override
   Widget buildChild(BuildContext context) {
-    /*return Container(
-      child: CarouselSlider(
-        items: _buildImageWidgets(),
-        autoPlay: false,
-        enlargeCenterPage: true,
-        viewportFraction: 0.9,
-        aspectRatio: 2.0,
-      ),
-    );*/
     return PropertyChangeConsumer<UserBloc>(
       properties: [UserBlocProperties.serverError, UserBlocProperties.complete],
       builder: (context, bloc, property) {

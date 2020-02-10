@@ -8,24 +8,6 @@ import 'package:property_change_notifier/property_change_notifier.dart';
 
 void main() => runApp(MyApp());
 
-/*class MyApp extends StatelessWidget {
-  UserRepo _userRepo;
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    UserRepo userRepo = UserRepoImpl();
-    Widget tree = MaterialApp(
-      title: 'Carousel Demo',
-      theme: ThemeData(
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: CarouselScreen(),
-    );
-    tree = PropertyChangeProvider(value: _checkAccountBloc, child: tree);
-    return tree;
-  }
-}*/
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
